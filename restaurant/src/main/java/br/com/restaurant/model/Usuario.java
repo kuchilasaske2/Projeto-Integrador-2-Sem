@@ -17,6 +17,18 @@ public class Usuario {
     private String email;
     private Date dataNascimento;
     
+    public Usuario() {
+		// TODO Auto-generated constructor stub
+	}
+    
+ // Construtor
+    public Usuario(String nome, String endereco, String email, Date dataNascimento) {
+        this.nome = nome;
+        this.endereco = endereco;
+        this.email = email;
+        this.dataNascimento = dataNascimento;
+    }
+    
 	public Long getId() {
 		return id;
 	}

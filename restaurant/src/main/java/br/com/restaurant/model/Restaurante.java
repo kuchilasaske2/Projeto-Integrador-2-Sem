@@ -1,5 +1,7 @@
 package br.com.restaurant.model;
 
+import java.util.List;
+
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
@@ -13,7 +15,19 @@ public class Restaurante {
     private String nome;
     private String nomeEstabelecimento;
     private String enderecoEstabelecimento;
-    private String fotosEstabelecimento;
+    private List<String> fotosEstabelecimento;
+    
+    public Restaurante() {
+		// TODO Auto-generated constructor stub
+	}
+
+    // Construtor
+    public Restaurante(String nome, String nomeEstabelecimento, String enderecoEstabelecimento, List<String> fotosEstabelecimento) {
+        this.nome = nome;
+        this.nomeEstabelecimento = nomeEstabelecimento;
+        this.enderecoEstabelecimento = enderecoEstabelecimento;
+        this.fotosEstabelecimento = fotosEstabelecimento;
+    }
     
 	public Long getId() {
 		return id;
@@ -39,10 +53,10 @@ public class Restaurante {
 	public void setEnderecoEstabelecimento(String enderecoEstabelecimento) {
 		this.enderecoEstabelecimento = enderecoEstabelecimento;
 	}
-	public String getFotosEstabelecimento() {
+	public List<String> getFotosEstabelecimento() {
 		return fotosEstabelecimento;
 	}
-	public void setFotosEstabelecimento(String fotosEstabelecimento) {
+	public void setFotosEstabelecimento(List<String> fotosEstabelecimento) {
 		this.fotosEstabelecimento = fotosEstabelecimento;
 	}
 }
