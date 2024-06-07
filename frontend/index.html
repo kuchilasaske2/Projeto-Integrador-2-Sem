@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    
+    <title>Página Principal</title>
+
+    <script src="jquery/jquery-3.7.1.min.js"></script>
+    <script src="js/script.js"></script>
+    <link rel="stylesheet" href="css/style.css">
+
+</head>
+<body>
+
+    <div class="navbar">
+        <div id="menu">
+            <button onclick="window.location.href='cadastro.html'">Cadastro</button>
+            <button onclick="window.location.href='login.html'">Login</button>
+        </div>
+        <div id="userMenu" style="display: none;">
+            <button onclick="window.location.href='update.html'">Atualizar Dados</button>
+            <button onclick="deleteUser()">Excluir Conta</button>
+        </div>
+        <button id="themeToggle">Alternar Tema</button>
+    </div>
+
+</body>
+</html>
