@@ -8,7 +8,8 @@ import br.com.restaurant.model.Usuario;
 
 public interface UsuarioRepository extends JpaRepository<Usuario, Long> {
 	
-	Optional<Usuario> findFirstByEmail(String email);
+	Optional<Usuario> getUserById(Long id);
 
+	Optional<Usuario> findByEmail(String email);
 	
 }

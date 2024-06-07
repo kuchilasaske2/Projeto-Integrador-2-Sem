@@ -4,31 +4,29 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
-
-import java.sql.Date;
+import jakarta.persistence.Table;
 
 @Entity
+@Table(name = "usuarios")
 public class Usuario {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     private String nome;
-    private String endereco;
     private String email;
     private String senha;
-    private Date dataNascimento;
     
     public Usuario() {
 		// TODO Auto-generated constructor stub
 	}
     
  // Construtor
-    public Usuario(String nome, String endereco, String email, String senha, Date dataNascimento) {
+    public Usuario(Long id, String nome, String email, String senha) {
+    	super();
+		this.id = id;
         this.nome = nome;
-        this.endereco = endereco;
         this.email = email;
         this.senha = senha;
-        this.dataNascimento = dataNascimento;
     }
     
 	public Long getId() {
@@ -43,12 +41,6 @@ public class Usuario {
 	public void setNome(String nome) {
 		this.nome = nome;
 	}
-	public String getEndereco() {
-		return endereco;
-	}
-	public void setEndereco(String endereco) {
-		this.endereco = endereco;
-	}
 	public String getEmail() {
 		return email;
 	}
@@ -58,16 +50,7 @@ public class Usuario {
 	public String getSenha() {
 		return senha;
 	}
-
 	public void setSenha(String senha) {
 		this.senha = senha;
 	}
-	public Date getDataNascimento() {
-		return dataNascimento;
-	}
-	public void setDataNascimento(Date dataNascimento) {
-		this.dataNascimento = dataNascimento;
-	}
-
-	
 }
