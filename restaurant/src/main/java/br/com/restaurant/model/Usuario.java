@@ -20,7 +20,7 @@ public class Usuario {
 		// TODO Auto-generated constructor stub
 	}
     
- // Construtor
+    // Construtor
     public Usuario(Long id, String nome, String email, String senha) {
     	super();
 		this.id = id;
@@ -29,6 +29,7 @@ public class Usuario {
         this.senha = senha;
     }
     
+    // Getters e setters
 	public Long getId() {
 		return id;
 	}
