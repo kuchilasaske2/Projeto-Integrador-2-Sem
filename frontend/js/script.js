@@ -23,38 +23,103 @@ $(document).ready(function() {
     });
 
     // Login de usuário
-    $('#loginForm').on('submit', function(e) {
-        e.preventDefault();
+    $('#loginForm').on('submit', function (event) {
+        event.preventDefault();
+        
         var email = $('#email').val();
-        var senha = $('#senha').val();
+        var password = $('#senha').val();
+        
         $.ajax({
             url: 'http://localhost:8080/api/login',
-            type: 'POST',
+            method: 'POST',
             contentType: 'application/json',
-            success: function(usuarios) {
-                var usuario = usuarios.find(u => u.email === email && u.senha === senha);
-                if (usuario) {
-                    localStorage.setItem('loggedInUsuario', JSON.stringify(usuario));
-                    alert('Login realizado com sucesso!');
-                    window.location.href = 'index.html';
-                    showUserMenu();
-                } else {
-                    alert('Credenciais inválidas!');
-                }
+            data: JSON.stringify({ "email": email, "senha": password }),
+            success: function (response) {
+                localStorage.setItem('usuario', JSON.stringify(response));
+                window.location.href = '/';
             },
-            error: function(error) {
-                alert('Erro ao realizar login!');
+            error: function (xhr, status, error) {
+                alert('Erro no login: ' + error);
             }
         });
     });
 
-    // Mostrar menu do usuário logado
-    function showUserMenu() {
-        var loggedInUsuario = localStorage.getItem('loggedInUsuario');
-        if (loggedInUsuario) {
-            $('#menu').hide();
-            $('#userMenu').show();
+    var user = JSON.parse(localStorage.getItem('user'));
+    if (user) {
+        $('#user-info').text('Olá, ' + user.name);
+    }
+
+    // Carregar lista de restaurantes
+    if (window.location.pathname === '/restaurants.html') {
+        loadRestaurants();
+    }
+
+    // Carregar detalhes do restaurante
+    if (window.location.pathname === '/restaurant-details.html') {
+        loadRestaurantDetails();
+    }
+
+    // Enviar comentário
+    $('#submit-comment').on('click', function () {
+        var commentText = $('#comment-text').val();
+        var restaurantId = getRestaurantIdFromUrl();
+        
+        if (commentText) {
+            $.ajax({
+                url: '/api/restaurants/' + restaurantId + '/comments',
+                method: 'POST',
+                contentType: 'application/json',
+                data: JSON.stringify({ text: commentText, userId: user.id }),
+                success: function (response) {
+                    $('#comments').append('<div class="comment">' + response.text + ' - ' + user.name + '</div>');
+                    $('#comment-text').val('');
+                },
+                error: function (xhr, status, error) {
+                    alert('Erro ao enviar comentário: ' + error);
+                }
+            });
         }
+    });
+
+    function loadRestaurants() {
+        $.ajax({
+            url: '/api/restaurants',
+            method: 'GET',
+            success: function (response) {
+                response.forEach(function (restaurant) {
+                    $('#restaurant-list').append('<li class="restaurant-item"><a href="/restaurant-details.html?id=' + restaurant.id + '">' + restaurant.name + '</a></li>');
+                });
+            },
+            error: function (xhr, status, error) {
+                alert('Erro ao carregar restaurantes: ' + error);
+            }
+        });
+    }
+
+    function loadRestaurantDetails() {
+        var restaurantId = getRestaurantIdFromUrl();
+        
+        $.ajax({
+            url: '/api/restaurants/' + restaurantId,
+            method: 'GET',
+            success: function (response) {
+                $('#restaurant-name').text(response.name);
+                $('#restaurant-address').text('Endereço: ' + response.address);
+                $('#restaurant-phone').text('Telefone: ' + response.phone);
+                $('#restaurant-cuisine').text('Tipo de Comida: ' + response.cuisine);
+                response.comments.forEach(function (comment) {
+                    $('#comments').append('<div class="comment">' + comment.text + ' - ' + comment.user.name + '</div>');
+                });
+            },
+            error: function (xhr, status, error) {
+                alert('Erro ao carregar detalhes do restaurante: ' + error);
+            }
+        });
+    }
+
+    function getRestaurantIdFromUrl() {
+        var params = new URLSearchParams(window.location.search);
+        return params.get('id');
     }
 
     // Exclusão de usuário

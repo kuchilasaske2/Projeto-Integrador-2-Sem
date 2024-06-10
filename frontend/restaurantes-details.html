@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     
-    <title>Página Principal</title>
+    <title>Detalhes do Restaurante</title>
 
     <script src="jquery/jquery-3.7.1.min.js"></script>
     <script src="js/script.js"></script>
@@ -16,11 +16,25 @@
     <div class="navbar">
         <div id="menu">
             <span id="user-info"></span>
+            <button onclick="window.location.href='restaurantes.html'">Voltar</button>
             <button onclick="window.location.href='cadastro.html'">Cadastro</button>
             <button onclick="window.location.href='login.html'">Login</button>
-            <button onclick="window.location.href='restaurantes.html'">Restaurantes</button>
         </div>
         <button id="themeToggle">Alternar Tema</button>
+    </div>
+
+    <div class="container">
+        <h1 id="restaurant-name"></h1>
+        <p id="restaurant-address"></p>
+        <p id="restaurant-phone"></p>
+        <p id="restaurant-cuisine"></p>
+        <div class="comment-section">
+            <h2>Comentários</h2>
+            <div id="comments"></div>
+            <h3>Deixe seu comentário</h3>
+            <textarea id="comment-text" rows="4" placeholder="Escreva seu comentário aqui..."></textarea>
+            <button id="submit-comment">Enviar Comentário</button>
+        </div>
     </div>
 
 </body>

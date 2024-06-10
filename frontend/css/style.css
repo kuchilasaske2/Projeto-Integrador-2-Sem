@@ -121,6 +121,47 @@ body.dark {
     background-color: var(--button-hover-background-color);
 }
 
+/*Restaurante CSS*/
+.container {
+    margin: 2rem;
+}
+
+button {
+    padding: 0.5rem 1rem;
+    background-color: #007bff;
+    color: #fff;
+    border: none;
+    cursor: pointer;
+}
+
+button:hover {
+    background-color: #0056b3;
+}
+.search-bar {
+    margin-bottom: 2rem;
+}
+
+.restaurant-list {
+    list-style: none;
+    padding: 0;
+}
+
+.restaurant-item {
+    padding: 1rem;
+    background-color: #fff;
+    margin-bottom: 1rem;
+    border: 1px solid #ddd;
+}
+
+.comment-section {
+    margin-top: 2rem;
+}
+
+.comment {
+    border-bottom: 1px solid #ddd;
+    padding: 1rem 0;
+}
+
 /* Responsividade */
 @media (max-width: 768px) {
     .navbar {
