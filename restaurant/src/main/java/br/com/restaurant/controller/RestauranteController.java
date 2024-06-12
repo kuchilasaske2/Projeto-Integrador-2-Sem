@@ -4,6 +4,7 @@ import java.util.List;
 
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -13,11 +14,12 @@ import org.springframework.web.bind.annotation.RestController;
 
 import br.com.restaurant.model.Comment;
 import br.com.restaurant.model.Restaurante;
+import br.com.restaurant.model.Usuario;
 import br.com.restaurant.service.CommentService;
 import br.com.restaurant.service.RestauranteService;
 
 @RestController
-@RequestMapping("/api")
+@RequestMapping("/api/restaurantes")
 public class RestauranteController {
 
     @Autowired
@@ -25,18 +27,25 @@ public class RestauranteController {
 
     @Autowired
     private CommentService commentService;
+    
+    @PostMapping
+	public ResponseEntity<Restaurante> create(@RequestBody Restaurante restaurante){
+		
+		Restaurante created = restauranteService.save(restaurante);
+		return ResponseEntity.ok(created);
+	}
 
-    @GetMapping("/restaurants")
+    @GetMapping("/restaurante")
     public List<Restaurante> getAllRestaurantes() {
         return restauranteService.getAllRestaurants();
     }
 
-    @GetMapping("/restaurants/{id}")
+    @GetMapping("/{id}")
     public Restaurante getRestaurantById(@PathVariable Long id) {
         return restauranteService.getRestaurantById(id);
     }
 
-    @PostMapping("/restaurants/{id}/comments")
+    @PostMapping("/{id}/comments")
     public Comment addComment(@PathVariable Long id, @RequestBody Comment comment) {
         return commentService.addComment(id, comment);
     }
