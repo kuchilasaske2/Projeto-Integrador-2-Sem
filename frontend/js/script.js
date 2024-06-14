@@ -44,9 +44,9 @@ $(document).ready(function() {
         });
     });
 
-    var user = JSON.parse(localStorage.getItem('user'));
-    if (user) {
-        $('#user-info').text('Olá, ' + user.name);
+    var usuario = JSON.parse(localStorage.getItem('usuario'));
+    if (usuario) {
+        $('#user-info').text('Olá, ' + usuario.nome);
     }
 
     // Carregar lista de restaurantes
@@ -66,7 +66,7 @@ $(document).ready(function() {
         
         if (commentText) {
             $.ajax({
-                url: '/api/restaurants/' + restaurantId + '/comments',
+                url: 'http://localhost:8080/api/restaurantes/' + restaurantId + userId + '/comments',
                 method: 'POST',
                 contentType: 'application/json',
                 data: JSON.stringify({ text: commentText, userId: user.id }),
@@ -79,6 +79,54 @@ $(document).ready(function() {
                 }
             });
         }
+    });
+
+    // Cadastro de usuário restaurante
+    $('#cadastroFormRestaurante').on('submit', function(e) {
+        e.preventDefault();
+        var restaurante = {
+            nome: $('#nome').val(),
+            endereco: $('#endereco').val(),
+            contato: $('#contato').val(),
+            tipoCozinha: $('#tipoCozinha').val(),
+            email: $('#email').val(),
+            senha: $('#senha').val()
+        };
+        $.ajax({
+            url: 'http://localhost:8080/api/restaurantes',
+            type: 'POST',
+            contentType: 'application/json',
+            data: JSON.stringify(restaurante),
+            success: function(response) {
+                alert('Usuário cadastrado com sucesso!');
+                window.location.href = 'index.html';
+            },
+            error: function(error) {
+                alert('Erro ao cadastrar usuário!');
+            }
+        });
+    });
+
+    // Login de usuário restaurante
+    $('#loginFormRestaurante').on('submit', function (event) {
+        event.preventDefault();
+        
+        var email = $('#email').val();
+        var password = $('#senha').val();
+        
+        $.ajax({
+            url: 'http://localhost:8080/api/loginRestaurante',
+            method: 'POST',
+            contentType: 'application/json',
+            data: JSON.stringify({ "email": email, "senha": password }),
+            success: function (response) {
+                localStorage.setItem('restaurante', JSON.stringify(response));
+                window.location.href = '/';
+            },
+            error: function (xhr, status, error) {
+                alert('Erro no login: ' + error);
+            }
+        });
     });
 
     function loadRestaurants() {
