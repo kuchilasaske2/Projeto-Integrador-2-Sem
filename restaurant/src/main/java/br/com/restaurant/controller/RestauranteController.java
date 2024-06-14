@@ -1,7 +1,7 @@
 package br.com.restaurant.controller;
 
 import java.util.List;
-
+import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -17,6 +17,7 @@ import br.com.restaurant.model.Restaurante;
 import br.com.restaurant.model.Usuario;
 import br.com.restaurant.service.CommentService;
 import br.com.restaurant.service.RestauranteService;
+import br.com.restaurant.service.UsuarioService;
 
 @RestController
 @RequestMapping("/api/restaurantes")
@@ -28,9 +29,11 @@ public class RestauranteController {
     @Autowired
     private CommentService commentService;
     
+    @Autowired
+    private UsuarioService usuarioService;
+    
     @PostMapping
 	public ResponseEntity<Restaurante> create(@RequestBody Restaurante restaurante){
-		
 		Restaurante created = restauranteService.save(restaurante);
 		return ResponseEntity.ok(created);
 	}
@@ -45,8 +48,10 @@ public class RestauranteController {
         return restauranteService.getRestaurantById(id);
     }
 
-    @PostMapping("/{id}/comments")
-    public Comment addComment(@PathVariable Long id, @RequestBody Comment comment) {
+    @PostMapping("/{id}/{userid}/comments")
+    public Comment addComment(@PathVariable Long id, @PathVariable Long userid, @RequestBody Comment comment) {
+    	Optional<Usuario> usuario = usuarioService.getUserById(userid);
+    	comment.setUsuario(usuario.get());
         return commentService.addComment(id, comment);
     }
 }
