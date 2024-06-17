@@ -22,11 +22,11 @@ public class UsuarioService {
 		return usuarioRepository.getUserById(id);
 	}
 	
-	public Usuario updateUsuario(Long id, Usuario userDetails) {
+	public Usuario updateUsuario(Long id, Usuario usuarioDetails) {
 	    Usuario usuario = usuarioRepository.findById(id).orElseThrow();
-	    usuario.setNome(userDetails.getNome());
-	    usuario.setEmail(userDetails.getEmail());
-	    usuario.setSenha(userDetails.getSenha());
+	    usuario.setNome(usuarioDetails.getNome());
+	    usuario.setEmail(usuarioDetails.getEmail());
+	    usuario.setSenha(usuarioDetails.getSenha());
 	    return usuarioRepository.save(usuario);
 	}
 
@@ -34,7 +34,7 @@ public class UsuarioService {
 	    usuarioRepository.deleteById(id);
 	}
 
-	public Usuario findByEmail(String email) {
+	public Optional<Usuario> findByEmail(String email) {
 		return usuarioRepository.findByEmail(email);
 	}
 	
