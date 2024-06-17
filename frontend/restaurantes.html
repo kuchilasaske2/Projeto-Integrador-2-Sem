@@ -3,32 +3,25 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    
-    <title>Seleção de Restaurantes</title>
-
+    <title>Restaurantes</title>
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
     <script src="jquery/jquery-3.7.1.min.js"></script>
-    <script src="js/script.js"></script>
+    <script src="js/restaurantes.js"></script>
     <link rel="stylesheet" href="css/style.css">
-
 </head>
 <body>
-
     <div class="navbar">
-        <div id="menu">
-            <span id="user-info"></span>
-            <button onclick="window.location.href='index.html'">Voltar</button>
-            <button onclick="window.location.href='cadastro.html'">Cadastro</button>
-            <button onclick="window.location.href='login.html'">Login</button>
-        </div>
-        <button id="themeToggle">Alternar Tema</button>
-        
+        <button class="btn btn-primary" onclick="window.location.href='index.html'">Voltar</button>
+        <button class="btn btn-secondary" id="themeToggle">Alternar Tema</button>
     </div>
-
     <div class="container">
-        <h1>Seleção de Restaurantes</h1>
-        <input type="text" id="search-bar" class="search-bar" placeholder="Pesquise por tipo de comida...">
-        <ul id="restaurant-list" class="restaurant-list"></ul>
+        <h1>Restaurantes</h1>
+        <div id="restaurant-list" class="row"></div>
     </div>
-
+    <script>
+        document.getElementById('themeToggle').addEventListener('click', () => {
+            document.body.classList.toggle('dark');
+        });
+    </script>
 </body>
 </html>

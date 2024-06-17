@@ -7,7 +7,7 @@
     <title>Página Principal</title>
 
     <script src="jquery/jquery-3.7.1.min.js"></script>
-    <script src="js/script.js"></script>
+    <script src="js/script2.js"></script>
     <link rel="stylesheet" href="css/style.css">
 
 </head>
@@ -15,13 +15,27 @@
 
     <div class="navbar">
         <div id="menu">
-            <span id="user-info"></span>
+            <div id="nomeUsuario"></div>
             <button onclick="window.location.href='cadastro.html'">Cadastro</button>
             <button onclick="window.location.href='login.html'">Login</button>
             <button onclick="window.location.href='restaurantes.html'">Restaurantes</button>
+            <button id="logout-btn">Logout</button> <!-- Adicione este botão -->
         </div>
         <button id="themeToggle">Alternar Tema</button>
     </div>
 
+    <h1>Página inicial</h1>
+    <div id="user-info"></div>
+</form>
+    <script>
+        $(document).ready(() => {
+            const nome = localStorage.getItem("nome");
+            if (nome) {
+                $("#user-info").text(`Bem-vindo, ${nome}!`);
+            }
+
+            $("#logout-btn").on("click", logout); // Adicione o evento de clique para logout
+        });
+    </script>
 </body>
 </html>

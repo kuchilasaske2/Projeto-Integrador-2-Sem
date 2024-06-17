@@ -7,7 +7,7 @@
     <title>Login</title>
 
     <script src="jquery/jquery-3.7.1.min.js"></script>
-    <script src="js/script.js"></script>
+    <script src="js/script2.js"></script>
     <link rel="stylesheet" href="css/style.css">
 
 </head>
@@ -17,15 +17,13 @@
         <button onclick="window.location.href='index.html'">Voltar</button>
         <button id="themeToggle">Alternar Tema</button>
     </div>
-    <form id="loginForm">
-        <h2>Login de Usuário</h2>
-        <label for="email">Email:</label>
-        <input type="email" id="email" name="email" required>
-        <label for="password">Senha:</label>
-        <input type="password" id="senha" name="password" required>
-        <button type="submit">Login</button>
-    </form>
+    <div id="main">
 
+        <h2>Login</h2>
+        <input type="text" id="e"><br>
+        <input type="password" id="s"><br>
+        <button onclick="authenticate()">Login</button>
+    </div>
     <p>Não possui uma conta? <a href="cadastro.html">Cadastre-se aqui</a></p>
    
 </body>
